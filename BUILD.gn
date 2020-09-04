@@ -1,6 +1,5 @@
 # Copyright (c) Huawei Technologies Co., Ltd. 2020. All rights reserved.
 
-
 import("//build/lite/config/component/lite_component.gni")
 import("//build/lite/config/subsystem/lite_subsystem.gni")
 
