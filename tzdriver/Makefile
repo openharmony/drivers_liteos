@@ -1,5 +1,5 @@
-# Copyright (c) 2013-2019, Huawei Technologies Co., Ltd. All rights reserved.
-# Copyright (c) 2020, Huawei Device Co., Ltd. All rights reserved.
+# Copyright (c) 2013-2019 Huawei Technologies Co., Ltd. All rights reserved.
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification,
 # are permitted provided that the following conditions are met:
@@ -26,6 +26,7 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 include $(LITEOSTOPDIR)/config.mk
 MODULE_NAME := $(notdir $(shell pwd))
 
@@ -33,7 +34,7 @@ LOCAL_SRCS := src/agent.c src/tzdebug.c src/security_auth_enhance.c src/mem.c \
               src/mailbox_mempool.c src/cmdmonitor.c src/teek_client_api.c src/tc_client_driver.c \
               src/tc_client_sub_driver.c src/gp_ops.c src/smc_smp.c src/tz_spi_notify.c src/tzdriver_compat.c \
 
-LOCAL_INCLUDE := -I./include/ -I../../../third_party/mbedtls/include
+LOCAL_INCLUDE := -I./include/ -I../../../third_party/mbedtls/include -I $(LITEOSTOPDIR)/../../$(LOSCFG_BOARD_CONFIG_PATH)/include
 
 LOCAL_FLAGS := $(LOCAL_INCLUDE)
 

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2013-2019, Huawei Technologies Co., Ltd. All rights reserved.
- * Copyright (c) 2020, Huawei Device Co., Ltd. All rights reserved.
+ * Copyright (c) 2013-2019 Huawei Technologies Co., Ltd. All rights reserved.
+ * Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -267,7 +267,8 @@ int HieventWriteInternal(const char *buffer, size_t bufLen)
     struct HieventEntry header;
     int retval;
 
-    if (bufLen < sizeof(int)) {
+    if (bufLen < sizeof(int) ||
+        bufLen > HIEVENT_LOG_BUFFER - sizeof(struct HieventEntry)) {
         return -EINVAL;
     }
 
@@ -321,11 +322,6 @@ static ssize_t HieventWrite(FAR struct file *filep,
                             const char *buffer, size_t bufLen)
 {
     (void)filep;
-    if (bufLen + sizeof(struct HieventEntry) > HIEVENT_LOG_BUFFER) {
-        PRINT_ERR("input too large\n");
-        return -ENOMEM;
-    }
-
     return HieventWriteInternal(buffer, bufLen);
 }
 

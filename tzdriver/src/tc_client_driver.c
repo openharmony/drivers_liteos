@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2013-2019, Huawei Technologies Co., Ltd. All rights reserved.
- * Copyright (c) 2020, Huawei Device Co., Ltd. All rights reserved.
+ * Copyright (c) 2013-2019 Huawei Technologies Co., Ltd. All rights reserved.
+ * Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -466,7 +466,7 @@ static int TcNsClientLogWithCert(TcNsDevFile *devFile, const void *buffer)
     errno_t sret;
     unsigned int certBufferSize = 0;
 
-    // apk ca login
+    // application ca login
     ret = CheckProcessAndAllocParams(devFile, &certBuffer,
         &certBufferSize);
     if (ret != 0) {
@@ -474,16 +474,6 @@ static int TcNsClientLogWithCert(TcNsDevFile *devFile, const void *buffer)
     }
 
     tempCertBuffer = certBuffer;
-    /* GET PACKAGE NAME AND APP CERTIFICATE:
-     * The proc_info format is as follows:
-     * package_name_len(4 bytes) || package_name ||
-     * apk_cert_len(4 bytes) || apk_cert.
-     * or package_name_len(4 bytes) || package_name
-     * || exe_uid_len(4 bytes) || exe_uid.
-     * The apk certificate format is as follows:
-     * modulus_size(4bytes) ||modulus buffer
-     * || exponent size || exponent buffer
-     */
     if (certBufferSize > MAX_BUF_LEN) {
         tloge("cert buffer size is invalid!\n");
         ret = -EINVAL;

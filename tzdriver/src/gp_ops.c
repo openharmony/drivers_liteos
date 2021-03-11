@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2013-2019, Huawei Technologies Co., Ltd. All rights reserved.
- * Copyright (c) 2020, Huawei Device Co., Ltd. All rights reserved.
+ * Copyright (c) 2013-2019 Huawei Technologies Co., Ltd. All rights reserved.
+ * Copyright (c) 2020-2021 Huawei Device Co., Ltd. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -1629,7 +1629,7 @@ ERROR:
 static bool IsOpenSessionByIndex(uint8_t flags, uint32_t cmdId,
     int index)
 {
-    /* params[2] for apk cert or native ca uid;
+    /* params[2] for application certificate or native ca uid;
      * params[3] for pkg name; therefore we set i>= 2
      */
     bool global = flags & TC_CALL_GLOBAL;
