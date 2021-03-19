@@ -291,7 +291,9 @@ int FrameBufferFunc(void)
 
 ## Repositories Involved<a name="section1371113476307"></a>
 
-**[drivers\_liteos](https://gitee.com/openharmony/drivers_liteos)**
+[Kernel subsystem](https://gitee.com/openharmony/docs/blob/master/en/readme/kernel.md)
 
-[kernel\_liteos\_a](https://gitee.com/openharmony/kernel_liteos_a)
+**drivers\_liteos**
+
+[kernel\_liteos\_a](https://gitee.com/openharmony/kernel_liteos_a/blob/master/README.md)
 
