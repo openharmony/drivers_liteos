@@ -31,29 +31,27 @@
 
 #include "hievent_driver.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <semaphore.h>
-#include <fcntl.h>
-#include <errno.h>
 #include <assert.h>
-
+#include <errno.h>
+#include <fcntl.h>
 #include <fs/fs.h>
-#include <sys/types.h>
 #include <linux/list.h>
 #include <linux/wait.h>
+#include <semaphore.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-#include "poll.h"
-#include "hievent_driver.h"
+#include "los_init.h"
 #include "los_memory.h"
-#include "los_task_pri.h"
+#include "los_mp.h"
+#include "los_mux.h"
 #include "los_process_pri.h"
 #include "los_task_pri.h"
-#include "los_mux.h"
-#include "los_mp.h"
-#include "los_vm_map.h"
-#include "user_copy.h"
 #include "los_vm_lock.h"
+#include "los_vm_map.h"
+#include "poll.h"
+#include "user_copy.h"
 
 #define HIEVENT_LOG_BUFFER 1024
 #define DRIVER_MODE 0666
@@ -368,10 +366,12 @@ static void HieventDeviceInit(void)
     g_hieventDev.count = 0;
 }
 
-int HieventInit()
+int HieventInit(void)
 {
     HieventDeviceInit();
     register_driver("/dev/hwlog_exception", &g_hieventFops,
                     DRIVER_MODE, &g_hieventDev);
     return 0;
 }
+
+LOS_MODULE_INIT(HieventInit, LOS_INIT_LEVEL_KMOD_EXTENDED);
