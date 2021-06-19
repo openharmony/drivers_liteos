@@ -36,8 +36,7 @@
 #include <linux/kernel.h>
 #include <linux/workqueue.h>
 #include "arm.h"
-#include "fs/fs.h"
-#include "fs_poll_pri.h"
+#include "fs/driver.h"
 #include "hisoc/random.h"
 #include "los_process_pri.h"
 #include "los_task.h"

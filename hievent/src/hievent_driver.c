@@ -34,7 +34,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <fs/fs.h>
+#include <fs/driver.h>
 #include <linux/list.h>
 #include <linux/wait.h>
 #include <semaphore.h>
@@ -66,7 +66,7 @@ struct HieventEntry {
     char msg[0];
 };
 
-FAR struct HieventCharDevice {
+struct HieventCharDevice {
     int flag;
     LosMux mtx;
     unsigned char *buffer;
@@ -86,13 +86,13 @@ static inline unsigned char *HieventBufferHead(void)
 }
 
 
-int HieventOpen(FAR struct file *filep)
+int HieventOpen(struct file *filep)
 {
     (void)filep;
     return 0;
 }
 
-int HieventClose(FAR struct file *filep)
+int HieventClose(struct file *filep)
 {
     (void)filep;
     return 0;
@@ -158,7 +158,7 @@ static int HieventReadRingBuffer(unsigned char *buffer, size_t bufLen)
     return retval;
 }
 
-static ssize_t HieventRead(FAR struct file *filep, char *buffer, size_t bufLen)
+static ssize_t HieventRead(struct file *filep, char *buffer, size_t bufLen)
 {
     size_t retval;
     struct HieventEntry header;
@@ -316,14 +316,14 @@ out:
 
 }
 
-static ssize_t HieventWrite(FAR struct file *filep,
+static ssize_t HieventWrite(struct file *filep,
                             const char *buffer, size_t bufLen)
 {
     (void)filep;
     return HieventWriteInternal(buffer, bufLen);
 }
 
-static int HieventPoll(FAR struct file *filep, poll_table *fds)
+static int HieventPoll(struct file *filep, poll_table *fds)
 {
     (void)filep;
 
@@ -332,7 +332,7 @@ static int HieventPoll(FAR struct file *filep, poll_table *fds)
     return (POLLOUT | POLLWRNORM);
 }
 
-static int HieventIoctl(FAR struct file *filep, int cmd, unsigned long arg)
+static int HieventIoctl(struct file *filep, int cmd, unsigned long arg)
 {
     // not support ioctl in liteos now
     (void)filep;
