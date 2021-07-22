@@ -29,12 +29,23 @@
 
 import("//kernel/liteos_a/liteos.gni")
 
-module_switch = defined(LOSCFG_DRIVERS_HIEVENT)
+module_switch = defined(LOSCFG_DRIVERS_TZDRIVER)
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
   sources = [
-    "src/hievent_driver.c",
-    "src/hiview_hievent.c",
+    "src/agent.c",
+    "src/cmdmonitor.c",
+    "src/gp_ops.c",
+    "src/mailbox_mempool.c",
+    "src/mem.c",
+    "src/security_auth_enhance.c",
+    "src/smc_smp.c",
+    "src/tc_client_driver.c",
+    "src/tc_client_sub_driver.c",
+    "src/teek_client_api.c",
+    "src/tz_spi_notify.c",
+    "src/tzdebug.c",
+    "src/tzdriver_compat.c",
   ]
 
   public_configs = [ ":public" ]
