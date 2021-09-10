@@ -272,8 +272,8 @@ static int TeeCalcTaskSoHash(unsigned char *digest, uint32_t digLen,
         if (!LOS_IsRegionFileValid(region)) {
             continue;
         }
-        struct file *fileRegion = region->unTypeData.rf.file;
-        if (fileRegion != NULL && !strncmp(fileRegion->f_path, LIBTEEC_SO, strlen(LIBTEEC_SO))) {
+        struct Vnode *vnode = region->unTypeData.rf.vnode;
+        if (vnode != NULL && !strncmp(vnode->filePath, LIBTEEC_SO, strlen(LIBTEEC_SO))) {
             TeeSha256Update(&ctx, (void *)region->range.base, region->range.size);
             findFlag = 1;
             break;
