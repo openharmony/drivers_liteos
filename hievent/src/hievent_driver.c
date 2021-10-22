@@ -201,6 +201,13 @@ static ssize_t HieventRead(struct file *filep, char *buffer, size_t bufLen)
 
     retval = header.len + sizeof(header);
 out:
+    if (retval == -ENOMEM) {
+        // clean ring buffer
+        g_hieventDev.writeOffset = 0;
+        g_hieventDev.headOffset = 0;
+        g_hieventDev.size = 0;
+        g_hieventDev.count = 0;
+    }
     (VOID)LOS_MuxRelease(&g_hieventDev.mtx);
     return retval;
 
