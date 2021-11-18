@@ -129,7 +129,6 @@ void MailboxPoolFreePages(LosVmPage *pageArray, size_t order)
 
     for (int i = 0; i < (1UL << order); i++) {
         LOS_AtomicDec(&(pageArray[i].refCounts));
-        LOS_PhysPageFree(&pageArray[i]);
     }
     LOS_PhysPagesFreeContiguous(pageArray, (1UL << order));
 }
