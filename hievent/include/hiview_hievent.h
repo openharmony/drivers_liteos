@@ -57,5 +57,6 @@ int HiviewHieventSetTime(struct HiviewHievent *event, long long seconds);
 int HiviewHieventAddFilePath(struct HiviewHievent *event, const char *path);
 int HiviewHieventReport(struct HiviewHievent *obj);
 void HiviewHieventDestroy(struct HiviewHievent *event);
+void HiviewHieventFlush(void);
 
 #endif /* HIVIEW_HIEVENT_H */
