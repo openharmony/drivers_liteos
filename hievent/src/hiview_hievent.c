@@ -543,3 +543,11 @@ void HiviewHieventDestroy(struct HiviewHievent *event)
     }
     LOS_MemFree((VOID *)OS_SYS_MEM_ADDR, event);
 }
+
+void HiviewHieventFlush(void)
+{
+    // magic number 0x7BBE69BD for notify hiview to flush hievent file
+    struct HiviewHievent *hievent = HiviewHieventCreate(0x7BBE69BD);
+    HiviewHieventReport(hievent);
+    HiviewHieventDestroy(hievent);
+}
