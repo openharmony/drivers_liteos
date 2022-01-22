@@ -544,8 +544,8 @@ char *GetProcessPath(LosTaskCB *task, char *tpath, int pathLen)
         return NULL;
     }
 
-    struct file *fp = OS_PCB_FROM_PID(task->processID)->execFile;
-    if (fp == NULL) {
+    struct Vnode *node = OsProcessExecVnodeGet(OS_PCB_FROM_PID(task->processID));
+    if (node == NULL) {
         return NULL;
     }
     int ret = memset_s(tpath, pathLen, '\0', pathLen);
@@ -554,7 +554,7 @@ char *GetProcessPath(LosTaskCB *task, char *tpath, int pathLen)
         return NULL;
     }
 
-    ret = memcpy_s(tpath, pathLen - 1, fp->f_path, strlen(fp->f_path));
+    ret = memcpy_s(tpath, pathLen - 1, node->filePath, strlen(node->filePath));
     if (ret != EOK) {
         tloge("memcpy error ret is %d\n", ret);
         return NULL;
