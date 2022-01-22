@@ -39,7 +39,8 @@
 #include "fs/driver.h"
 #include "hisoc/random.h"
 #include "los_process_pri.h"
-#include "los_task.h"
+#include "los_sched_pri.h"
+#include "los_task_pri.h"
 #include "los_vm_lock.h"
 #include "los_vm_map.h"
 #include "los_vm_phys.h"
@@ -197,15 +198,7 @@ static inline int AccessOk(int type, unsigned long ptr, unsigned int size)
 static inline int GetTaskUid(LosTaskCB *task)
 {
 #ifdef LOSCFG_SECURITY_CAPABILITY
-    int intSave = LOS_IntLock();
-    int uid = -1;
-
-    LosProcessCB *process = OS_PCB_FROM_PID(task->processID);
-    if (process->user) {
-        uid = process->user->userID;
-    }
-    LOS_IntRestore(intSave);
-    return uid;
+    return (int)OsProcessUserIDGet(task);
 #else
     return 0;
 #endif
@@ -278,14 +271,14 @@ static inline int HmTestBit(int nr, const volatile uint64_t *addr)
 static inline void PreemptDisable(void)
 {
     UINT32 intSave = LOS_IntLock();
-    OsPercpuGet()->taskLockCnt++;
+    OsSchedLock();
     LOS_IntRestore(intSave);
 }
 
 static inline void PreemptEnable(void)
 {
     UINT32 intSave = LOS_IntLock();
-    OsPercpuGet()->taskLockCnt--;
+    OsSchedUnlock();
     LOS_IntRestore(intSave);
 }
 
@@ -331,7 +324,7 @@ static inline LosTaskCB *GetProcessGroupLeader(LosTaskCB *task)
     if (task == NULL) {
         return NULL;
     }
-    return OS_TCB_FROM_TID(OS_PCB_FROM_PID(task->processID)->threadGroupID);
+    return OS_TCB_FROM_TID(OsProcessThreadGroupIDGet(task));
 }
 
 static inline unsigned long MsecsToJiffies(const unsigned int m)
@@ -360,7 +353,7 @@ static inline int IsKernelThread(LosTaskCB *task)
     if (task == NULL) {
         return true;
     }
-    return (OS_PCB_FROM_PID(task->processID)->processMode == OS_KERNEL_MODE);
+    return !(OsProcessIsUserMode(OS_PCB_FROM_PID(task->processID)));
 }
 
 static inline int IsTeecdProcess(LosTaskCB *teecd, LosTaskCB *task)
