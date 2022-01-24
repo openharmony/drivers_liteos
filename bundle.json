@@ -1,0 +1,55 @@
+{
+    "name": "@ohos/drivers_liteos",
+    "version": "",
+    "description": "Liteos_a kernel-space drivers | liteos_a内核态驱动",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "BSD 3-Clause",
+    "repository": "https://gitee.com/openharmony/drivers_liteos",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "drivers"
+    ],
+    "keywords": [
+        "drivers",
+        "liteos"
+    ],
+    "envs": {},
+    "dirs": {},
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "drivers/liteos"
+    },
+    "component": {
+        "name": "drivers_liteos",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}
