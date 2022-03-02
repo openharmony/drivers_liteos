@@ -197,7 +197,7 @@ static inline int AccessOk(int type, unsigned long ptr, unsigned int size)
 static inline int GetTaskUid(LosTaskCB *task)
 {
 #ifdef LOSCFG_SECURITY_CAPABILITY
-    int intSave = LOS_IntLock();
+    unsigned int intSave = LOS_IntLock();
     int uid = -1;
 
     LosProcessCB *process = OS_PCB_FROM_PID(task->processID);
