@@ -317,7 +317,7 @@ static void ShowInBitmap(int *cmdIn, uint32_t len)
     for (idx = 0; idx < MAX_SMC_CMD; idx++) {
         if (HmTestBit(idx, g_cmdData->inBitmap)) {
             bitmap[idx] = '1';
-            cmdIn[in++] = idx;
+            cmdIn[in++] = (int)idx;
         } else {
             bitmap[idx] = '0';
         }
