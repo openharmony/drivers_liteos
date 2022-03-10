@@ -157,6 +157,7 @@ lastCmdId:%u, count:%d, agent call count:%d, timeTotal:%lld us returned, remaine
                 monitor->timeTotal, g_cmdMonitorListSize);
             list_del(&monitor->list);
             free(monitor);
+            monitor = NULL;
             continue;
         }
         /* not return, we need to check  */
@@ -229,10 +230,12 @@ static struct CmdMonitor *InitMonitorLocked(void)
     LosProcessCB *runProcess = OS_PCB_FROM_PID(newItem->pid);
     if (strncpy_s(newItem->pName, TASK_COMM_LEN, runProcess->processName, OS_PCB_NAME_LEN) != EOK) {
         free(newItem);
+        newItem = NULL;
         return NULL;
     }
     if (strncpy_s(newItem->tName, TASK_COMM_LEN, OsCurrTaskGet()->taskName, OS_TCB_NAME_LEN) != EOK) {
         free(newItem);
+        newItem = NULL;
         return NULL;
     }
     INIT_LIST_HEAD(&newItem->list);
