@@ -952,7 +952,11 @@ static void ShadowWorkFunc(struct work_struct *work)
     *targetArg = sWork->target;
 
     char shadowName[OS_TCB_NAME_LEN] = {0};
-    sprintf_s(shadowName, OS_TCB_NAME_LEN, "shadow_th/%lu", g_shadowThreadId++);
+    int ret = sprintf_s(shadowName, OS_TCB_NAME_LEN, "shadow_th/%lu", g_shadowThreadId++);
+    if (ret < 0) {
+        free(targetArg);
+        return;
+    }
     shadowThread = KthreadRun(ShadowThreadFn, targetArg, sizeof(uint64_t), shadowName);
     if (IS_ERR_OR_NULL(shadowThread)) {
         free(targetArg);
