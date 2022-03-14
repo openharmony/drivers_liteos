@@ -48,7 +48,7 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     int fb\_register\(int display, int plane\);
 
-    **函数功能：**加载framebuffer驱动，注册设备节点/dev/fb0；若成功则返回0， 否则返回相应的错误码。
+    **函数功能：** 加载framebuffer驱动，注册设备节点/dev/fb0；若成功则返回0， 否则返回相应的错误码。
 
     **参数说明：**
 
@@ -79,7 +79,7 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     int fb\_unregister\(int display\);
 
-    **函数功能：**卸载framebuffer驱动；若成功则返回0， 否则返回相应的错误码。
+    **函数功能：** 卸载framebuffer驱动；若成功则返回0， 否则返回相应的错误码。
 
     **参数说明：**
 
@@ -105,7 +105,7 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     int up\_fbinitialize\(int display\);
 
-    **函数功能：**初始化framebuffer驱动，这个接口需要用户通过调用fb\_register注册设备节点来实现，以提供framebuffer硬件驱动功能；若成功则返回0，否则返回相应的错误码。
+    **函数功能：** 初始化framebuffer驱动，这个接口需要用户通过调用fb\_register注册设备节点来实现，以提供framebuffer硬件驱动功能；若成功则返回0，否则返回相应的错误码。
 
     **参数说明：**
 
@@ -131,7 +131,7 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     void up\_fbuninitialize\(int display\);
 
-    **函数功能：**卸载framebuffer硬件驱动，这个接口需要用户通过调用fb\_unregister注销设备节点来实现；无返回值。
+    **函数功能：** 卸载framebuffer硬件驱动，这个接口需要用户通过调用fb\_unregister注销设备节点来实现；无返回值。
 
     **参数说明：**
 
@@ -157,7 +157,7 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     struct fb\_vtable\_s \*up\_fbgetvplane\(int display, int vplane\);
 
-    **函数功能：**获取framebuffer硬件驱动的句柄，这个接口需要用户实现；若成功则返回有效指针，否则返回NULL。
+    **函数功能：** 获取framebuffer硬件驱动的句柄，这个接口需要用户实现；若成功则返回有效指针，否则返回NULL。
 
     **参数说明：**
 
@@ -188,9 +188,9 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     int pse\_ran\_dev\_register\(void\);
 
-    **函数功能：**初始化软随机设备驱动，注册设备节点/dev/random；若成功则返回0， 否则返回相应的错误码。
+    **函数功能：** 初始化软随机设备驱动，注册设备节点/dev/random；若成功则返回0， 否则返回相应的错误码。
 
-    **参数说明：**无
+    **参数说明：** 无
 
 
 -   ran\_dev\_register
@@ -199,9 +199,9 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     int ran\_dev\_register\(void\);
 
-    **函数功能：**初始化硬随机设备驱动，注册设备节点/dev/urandom；若成功则返回0， 否则返回相应的错误码。
+    **函数功能：** 初始化硬随机设备驱动，注册设备节点/dev/urandom；若成功则返回0， 否则返回相应的错误码。
 
-    **参数说明：**无
+    **参数说明：** 无
 
 
 -   mem\_dev\_register
@@ -210,9 +210,9 @@ video源码实现在third\_party/NuttX下面：video/fb.c和video/fb.h。
 
     int mem\_dev\_register\(void\);
 
-    **函数功能：**初始化mem驱动，注册设备节点/dev/mem；若成功则返回0，否则返回相应的错误码。
+    **函数功能：** 初始化mem驱动，注册设备节点/dev/mem；若成功则返回0，否则返回相应的错误码。
 
-    **参数说明：**无
+    **参数说明：** 无
 
 
 ### 使用说明<a name="section129654513264"></a>
@@ -293,7 +293,7 @@ int FrameBufferFunc(void)
 
 [内核子系统](https://gitee.com/openharmony/docs/blob/HEAD/zh-cn/readme/%E5%86%85%E6%A0%B8%E5%AD%90%E7%B3%BB%E7%BB%9F.md)
 
-**drivers\_liteos**
+[drivers\_liteos](https://gitee.com/openharmony/drivers_liteos/blob/master/README_zh.md)
 
 [kernel\_liteos\_a](https://gitee.com/openharmony/kernel_liteos_a/blob/HEAD/README_zh.md)
 
