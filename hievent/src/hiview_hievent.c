@@ -482,15 +482,15 @@ static int HiviewHieventWriteLogException(char *str, const int strlen)
         if (leftBufLen > EVENT_INFO_PACK_BUF_LEN) {
             tempchr = strptr[EVENT_INFO_PACK_BUF_LEN - 1];
             strptr[EVENT_INFO_PACK_BUF_LEN - 1] = '\0';
-            LogBufToException(0, 0, IDAP_LOGTYPE_CMD, 1,
-                              strptr, EVENT_INFO_PACK_BUF_LEN);
+            (void)LogBufToException(0, 0, IDAP_LOGTYPE_CMD, 1,
+                                    strptr, EVENT_INFO_PACK_BUF_LEN);
             leftBufLen -= (EVENT_INFO_PACK_BUF_LEN - 1);
             strptr += (EVENT_INFO_PACK_BUF_LEN - 1);
             strptr[0] = tempchr;
             sentcnt++;
         } else {
-            LogBufToException(0, 0, IDAP_LOGTYPE_CMD, 0,
-                              strptr, leftBufLen);
+            (void)LogBufToException(0, 0, IDAP_LOGTYPE_CMD, 0,
+                                    strptr, leftBufLen);
             sentcnt++;
             break;
         }
@@ -548,6 +548,6 @@ void HiviewHieventFlush(void)
 {
     // magic number 0x7BBE69BD for notify hiview to flush hievent file
     struct HiviewHievent *hievent = HiviewHieventCreate(0x7BBE69BD);
-    HiviewHieventReport(hievent);
+    (void)HiviewHieventReport(hievent);
     HiviewHieventDestroy(hievent);
 }
