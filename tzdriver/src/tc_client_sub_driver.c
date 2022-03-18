@@ -679,20 +679,21 @@ void DelServiceFromDev(TcNsDevFile *dev, TcNsService *service)
         return;
     }
     for (i = 0; i < SERVICES_MAX_COUNT; i++) {
-        if (dev->services[i] == service) {
-            tlogd("dev->serviceRef[%u] = %u\n", i, dev->serviceRef[i]);
-            if (dev->serviceRef[i] == 0) {
-                tloge("Caution! No service to be deleted!\n");
-                break;
-            }
-            dev->serviceRef[i]--;
-            if (!dev->serviceRef[i]) {
-                tlogd("del service %u from %u\n", i, dev->devFileId);
-                dev->services[i] = NULL;
-                PutServiceStruct(service);
-            }
+        if (dev->services[i] != service) {
+            continue;
+        }
+        tlogd("dev->serviceRef[%u] = %u\n", i, dev->serviceRef[i]);
+        if (dev->serviceRef[i] == 0) {
+            tloge("Caution! No service to be deleted!\n");
             break;
         }
+        dev->serviceRef[i]--;
+        if (!dev->serviceRef[i]) {
+            tlogd("del service %u from %u\n", i, dev->devFileId);
+            dev->services[i] = NULL;
+            PutServiceStruct(service);
+        }
+        break;
     }
 }
 
