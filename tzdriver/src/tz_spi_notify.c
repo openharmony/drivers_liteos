@@ -150,23 +150,25 @@ static DECLARE_WORK(tc_notify_work, TcNotifyFn);
 static struct workqueue_struct *g_tzSpiWq = NULL;
 #endif
 
+static void WalkCallback(struct NotifyContextTimer *tcNotifyDataTimer, struct TcNsCallback *callbackFuncT)
+{
+    if (tcNotifyDataTimer->property.timerClass == TIMER_RTC) {
+        tlogd("start to call callback func\n");
+        callbackFuncT->callbackFunc((void *)(&(tcNotifyDataTimer->property)));
+        tlogd("end to call callback func\n");
+    } else if (tcNotifyDataTimer->property.timerClass == TIMER_GENERIC) {
+        tlogd("timer60 no callback func\n");
+    }
+}
+
 static void WalkCallbackList(struct NotifyContextTimer *tcNotifyDataTimer)
 {
     struct TcNsCallback *callbackFuncT = NULL;
 
     mutex_lock(&g_taCallbackFuncList.callbackListLock);
-    list_for_each_entry(callbackFuncT,
-        &g_taCallbackFuncList.callbackList, head) {
-        if (memcmp(callbackFuncT->uuid, tcNotifyDataTimer->uuid,
-            UUID_SIZE) == 0) {
-            if (tcNotifyDataTimer->property.timerClass == TIMER_RTC) {
-                tlogd("start to call callback func\n");
-                callbackFuncT->callbackFunc(
-                    (void *)(&(tcNotifyDataTimer->property)));
-                tlogd("end to call callback func\n");
-            } else if (tcNotifyDataTimer->property.timerClass == TIMER_GENERIC) {
-                tlogd("timer60 no callback func\n");
-            }
+    list_for_each_entry(callbackFuncT, &g_taCallbackFuncList.callbackList, head) {
+        if (memcmp(callbackFuncT->uuid, tcNotifyDataTimer->uuid, UUID_SIZE) == 0) {
+            WalkCallback(tcNotifyDataTimer, callbackFuncT);
         }
     }
     mutex_unlock(&g_taCallbackFuncList.callbackListLock);
