@@ -39,7 +39,6 @@
 #include "los_memory.h"
 #include "los_task_pri.h"
 #include "los_process_pri.h"
-#include "los_task_pri.h"
 #include "los_mux.h"
 #include "los_mp.h"
 #include "los_typedef.h"
