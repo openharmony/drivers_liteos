@@ -186,7 +186,7 @@ lastCmdId:%u, agent call count:%d, timeDif:%lld ms and report\n",
                 WakeupTcSiq();
             }
         } else if (timeDif > 1 * MSEC_PER_SEC) {
-            tloge("[CmdMonitorTick] pid=%d, pName=%s, tid=%d,\
+            tloge("[CmdMonitorTick] pid=%d, pName=%s, tid=%d, \
 lastCmdId=%u, agent call count:%d, timeDif=%lld ms\n",
                   monitor->pid, monitor->pName, monitor->tid,
                   monitor->lastCmdId, monitor->agentCallCount,
