@@ -704,10 +704,6 @@ static uint32_t SendSmcCmd(uint32_t cmd, paddr_t cmdAddr,
     register uint32_t r1 asm("r1") = cmdAddr;
     register uint32_t r2 asm("r2") = cmdType;
     register uint32_t r3 asm("r3") = 0;
-    (void)r0;
-    (void)r1;
-    (void)r2;
-    (void)r3;
     do {
         __asm__ volatile(
             ".ifnc %0, r0;.err;.endif;\n"
@@ -742,7 +738,7 @@ int RawSmcSend(uint32_t cmd, paddr_t cmdAddr,
 
 void SiqDump(paddr_t mode)
 {
-    RawSmcSend(TSP_REE_SIQ, mode, 0, false);
+    (void)RawSmcSend(TSP_REE_SIQ, mode, 0, false);
     DoCmdNeedArchivelog();
 }
 
@@ -952,7 +948,11 @@ static void ShadowWorkFunc(struct work_struct *work)
     *targetArg = sWork->target;
 
     char shadowName[OS_TCB_NAME_LEN] = {0};
-    sprintf_s(shadowName, OS_TCB_NAME_LEN, "shadow_th/%lu", g_shadowThreadId++);
+    int ret = sprintf_s(shadowName, OS_TCB_NAME_LEN, "shadow_th/%lu", g_shadowThreadId++);
+    if (ret < 0) {
+        free(targetArg);
+        return;
+    }
     shadowThread = KthreadRun(ShadowThreadFn, targetArg, sizeof(uint64_t), shadowName);
     if (IS_ERR_OR_NULL(shadowThread)) {
         free(targetArg);
@@ -1012,7 +1012,7 @@ void FiqShadowWorkFunc(uint64_t target)
 {
     SmcCmdRetT secret = { SMC_EXIT_MAX, 0, target };
 
-    SmpSmcSend(TSP_REQUEST, SMC_OPS_START_FIQSHD, GetCurrentPid(),
+    (void)SmpSmcSend(TSP_REQUEST, SMC_OPS_START_FIQSHD, GetCurrentPid(),
         &secret, false);
     return;
 }
@@ -1426,7 +1426,7 @@ int TcNsSmcWithNoNr(TcNsSmcCmd *cmd)
 
 static void SmcWorkNoWait(uint32_t type)
 {
-    RawSmcSend(TSP_REQUEST, g_cmdPhys, type, true);
+    (void)RawSmcSend(TSP_REQUEST, g_cmdPhys, type, true);
 }
 
 static void SmcWorkSetCmdBuffer(struct work_struct *work)

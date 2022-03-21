@@ -423,7 +423,7 @@ static int WaitAgentResponse(struct SmcEventData *eventData)
 int AgentProcessWork(const TcNsSmcCmd *smcCmd, unsigned int agentId)
 {
     struct SmcEventData *eventData = NULL;
-    int ret;
+    int ret = 0;
 
     if (smcCmd == NULL) {
         tloge("smcCmd is null\n");
@@ -1071,7 +1071,7 @@ static int DefTeeAgentRun(struct TeeAgentKernelOps *agentInstance)
         goto OUT;
     }
 
-    /* 2. Creat thread to run agent */
+    /* 2. Create thread to run agent */
     ret = sprintf_s(agentName, OS_TCB_NAME_LEN, "agent_%s", agentInstance->agentName);
     if (ret == -1) {
         goto OUT;

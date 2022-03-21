@@ -157,6 +157,7 @@ lastCmdId:%u, count:%d, agent call count:%d, timeTotal:%lld us returned, remaine
                 monitor->timeTotal, g_cmdMonitorListSize);
             list_del(&monitor->list);
             free(monitor);
+            monitor = NULL;
             continue;
         }
         /* not return, we need to check  */
@@ -185,7 +186,7 @@ lastCmdId:%u, agent call count:%d, timeDif:%lld ms and report\n",
                 WakeupTcSiq();
             }
         } else if (timeDif > 1 * MSEC_PER_SEC) {
-            tloge("[CmdMonitorTick] pid=%d, pName=%s, tid=%d,\
+            tloge("[CmdMonitorTick] pid=%d, pName=%s, tid=%d, \
 lastCmdId=%u, agent call count:%d, timeDif=%lld ms\n",
                   monitor->pid, monitor->pName, monitor->tid,
                   monitor->lastCmdId, monitor->agentCallCount,
@@ -215,7 +216,7 @@ static struct CmdMonitor *InitMonitorLocked(void)
 
     newItem = calloc(1, sizeof(*newItem));
     if (ZERO_OR_NULL_PTR((unsigned long)(uintptr_t)newItem)) {
-        tloge("[CmdMonitorTick]calloc faild\n");
+        tloge("[CmdMonitorTick]calloc failed\n");
         return NULL;
     }
     newItem->sendTime = CurrentKernelTime();
@@ -229,10 +230,12 @@ static struct CmdMonitor *InitMonitorLocked(void)
     LosProcessCB *runProcess = OS_PCB_FROM_PID(newItem->pid);
     if (strncpy_s(newItem->pName, TASK_COMM_LEN, runProcess->processName, OS_PCB_NAME_LEN) != EOK) {
         free(newItem);
+        newItem = NULL;
         return NULL;
     }
     if (strncpy_s(newItem->tName, TASK_COMM_LEN, OsCurrTaskGet()->taskName, OS_TCB_NAME_LEN) != EOK) {
         free(newItem);
+        newItem = NULL;
         return NULL;
     }
     INIT_LIST_HEAD(&newItem->list);

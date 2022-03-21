@@ -293,7 +293,7 @@ int FrameBufferFunc(void)
 
 [Kernel subsystem](https://gitee.com/openharmony/docs/blob/HEAD/en/readme/kernel.md)
 
-**drivers\_liteos**
+[drivers\_liteos](https://gitee.com/openharmony/drivers_liteos/blob/master/README.md)
 
 [kernel\_liteos\_a](https://gitee.com/openharmony/kernel_liteos_a/blob/HEAD/README.md)
 
