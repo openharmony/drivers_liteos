@@ -71,7 +71,7 @@ TcNsSharedMem *TcMemAllocate(size_t len)
 
     addr = LOS_VMalloc(len);
     if (addr == NULL) {
-        tloge("alloc maibox failed\n");
+        tloge("alloc mailbox failed\n");
         free(sharedMem);
         return ERR_PTR(-ENOMEM);
     }
