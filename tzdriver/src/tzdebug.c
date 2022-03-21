@@ -72,7 +72,7 @@ static int GetTeeMemInfoCmd(void)
     ret = SendDumpMem(0, mem);
     mutex_lock(&g_meminfoLock);
     sret = memcpy_s((void *)&g_teeMeminfo, sizeof(g_teeMeminfo), mem, sizeof(*mem));
-    if (sret != 0) {
+    if (sret != EOK) {
         tloge("sret=%d\n", sret);
     }
     mutex_unlock(&g_meminfoLock);
@@ -224,7 +224,7 @@ static void TzHelp(const char *param)
 static ssize_t TzDbgOptWrite(struct file *filp,
     const char __user *ubuf, size_t cnt)
 {
-    char buf[128] = {0};
+    char buf[128] = {0}; /* 128, size of copy from ubuf */
     char *value = NULL;
     char *p = NULL;
     uint32_t i = 0;

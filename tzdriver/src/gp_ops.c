@@ -526,7 +526,7 @@ static int AllocForRefMem(AllocParams *paramsIn,
         return ret;
     }
     operation->params[index].memref.buffer = 0;
-    /* find kernel addr refered to user addr */
+    /* find kernel addr referred to user addr */
     mutex_lock(&devFile->sharedMemLock);
     list_for_each_entry(sharedMem, &devFile->sharedMemList, head) {
         if (sharedMem->userAddr ==
@@ -1383,7 +1383,7 @@ static void ResetSessionId(TcNsClientContext *clientContext,
     int needReset;
 
     clientContext->sessionId = smcCmd->contextId;
-    // if teeRet error except TEEC_PENDING,but contextId is seted,need to reset to 0.
+    // if teeRet error except TEEC_PENDING, but contextId is set, need to reset to 0.
     needReset = global &&
         clientContext->cmdId == GLOBAL_CMD_ID_OPEN_SESSION &&
         teeRet != 0 && TEEC_PENDING != teeRet;
