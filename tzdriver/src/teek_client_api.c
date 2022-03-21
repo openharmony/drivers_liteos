@@ -249,7 +249,7 @@ static TeecResult TeekCheckMemRef(TeecRegisteredmemoryReference memref,
 }
 
 /*
- * This function checks a operation is valid or not.
+ * This function checks an operation is valid or not.
  */
 TeecResult TeekCheckOperation(const TeecOperation *operation)
 {

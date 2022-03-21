@@ -216,7 +216,7 @@ static struct CmdMonitor *InitMonitorLocked(void)
 
     newItem = calloc(1, sizeof(*newItem));
     if (ZERO_OR_NULL_PTR((unsigned long)(uintptr_t)newItem)) {
-        tloge("[CmdMonitorTick]calloc faild\n");
+        tloge("[CmdMonitorTick]calloc failed\n");
         return NULL;
     }
     newItem->sendTime = CurrentKernelTime();

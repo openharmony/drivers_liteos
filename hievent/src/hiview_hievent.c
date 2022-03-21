@@ -284,7 +284,7 @@ static int AppendArrayItem(char **pool, int poolLen, const char *path)
     }
 
     if (i == MAX_PATH_NUMBER) {
-        HWLOG_ERR("Too many pathes");
+        HWLOG_ERR("Too many paths");
         return -EINVAL;
     }
 
