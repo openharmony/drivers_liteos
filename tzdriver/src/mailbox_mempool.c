@@ -73,7 +73,7 @@ static void MailboxShowStatus(void)
     mutex_lock(&g_mbLock);
     for (i = 0; i < MAILBOX_PAGE_MAX; i++) {
         if (g_mZone.pages[i].count) {
-            pr_info("page[%02d], order=%02d, count=%d\n", i, g_mZone.pages[i].order, g_mZone.pages[i].count);
+            pr_info("page[%02d], order=%02u, count=%u\n", i, g_mZone.pages[i].order, g_mZone.pages[i].count);
             used += (1UL << (uint32_t)g_mZone.pages[i].order);
         }
     }
