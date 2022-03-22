@@ -142,7 +142,7 @@ static int HieventBufferCopy(unsigned char *dst, unsigned dstLen,
 
 static int HieventReadRingBuffer(unsigned char *buffer, size_t bufLen)
 {
-    size_t retval;
+    int retval;
     size_t bufLeft = HIEVENT_LOG_BUFFER - g_hieventDev.headOffset;
     if (bufLeft > bufLen) {
         retval = HieventBufferCopy(buffer, bufLen, HieventBufferHead(), bufLen);
@@ -160,7 +160,7 @@ static int HieventReadRingBuffer(unsigned char *buffer, size_t bufLen)
 
 static ssize_t HieventRead(struct file *filep, char *buffer, size_t bufLen)
 {
-    size_t retval;
+    ssize_t retval;
     struct HieventEntry header;
 
     (void)filep;
