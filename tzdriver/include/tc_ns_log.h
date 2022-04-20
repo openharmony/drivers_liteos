@@ -52,32 +52,32 @@ enum {
 #define tlogv(fmt, args...) \
 do { \
     if (TZ_DEBUG_VERBOSE >= TEE_LOG_MASK) \
-        pr_info("(%i, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
+        pr_info("(%u, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
 } while (0)
 
 
 #define tlogd(fmt, args...) \
 do { \
     if (TZ_DEBUG_DEBUG >= TEE_LOG_MASK) \
-        pr_info("(%i, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
+        pr_info("(%u, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
 } while (0)
 
 
 #define tlogi(fmt, args...) \
 do { \
     if (TZ_DEBUG_INFO >= TEE_LOG_MASK) \
-        pr_info("(%i, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
+        pr_info("(%u, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
 } while (0)
 
 
 #define tlogw(fmt, args...) \
 do { \
     if (TZ_DEBUG_WARN >= TEE_LOG_MASK) \
-        pr_warn("(%i, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
+        pr_warn("(%u, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args); \
 } while (0)
 
 
 #define tloge(fmt, args...) \
-        pr_err("(%i, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args)
+        pr_err("(%u, %s)%s: " fmt, OsCurrTaskGet()->taskID, OsCurrTaskGet()->taskName, __func__, ## args)
 
 #endif
