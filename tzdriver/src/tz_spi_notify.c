@@ -672,7 +672,7 @@ int TzSpiInit()
     irq = NUM_HAL_INTERRUPT_TEE_SPI_NOTIFY;
     int ret = DevmRequestIrq(irq, TcSecureNotify, IRQF_NO_SUSPEND, TC_NS_CLIENT_DEV, NULL);
     if (ret < 0) {
-        tloge("device irq %u request failed %u", irq, ret);
+        tloge("device irq %u request failed %d", irq, ret);
         goto clean;
     }
     ret = memset_s(&g_taCallbackFuncList, sizeof(g_taCallbackFuncList), 0, sizeof(g_taCallbackFuncList));

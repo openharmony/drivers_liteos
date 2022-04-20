@@ -1561,7 +1561,7 @@ int SmcInitData(void)
 
     g_siqThread = KthreadRun(SiqThreadFn, NULL, 0, "siqthread/0");
     if (unlikely(IS_ERR_OR_NULL(g_siqThread))) {
-        pr_err("couldn't create siqthread %ld\n",
+        pr_err("couldn't create siqthread %lu\n",
             PTR_ERR(g_siqThread));
         ret = (int)PTR_ERR(g_siqThread);
         goto FREE_MEM;
