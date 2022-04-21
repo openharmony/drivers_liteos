@@ -591,7 +591,7 @@ int PackCaCert(char *caCert, const char *path,
     }
 
     messageSize = snprintf_s(caCert, BUF_MAX_SIZE - 1,
-        BUF_MAX_SIZE - 1, "%s%u", path,
+        BUF_MAX_SIZE - 1, "%s%d", path,
         uid);
 
     return messageSize;
