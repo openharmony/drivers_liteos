@@ -445,7 +445,7 @@ static int HiviewHieventConvertString(struct HiviewHievent *event, char **pbuf)
     tmp = buf;
 
     /* fill eventid */
-    tmplen = snprintf_s(tmp, len, len - 1, "eventid %d", event->eventid);
+    tmplen = snprintf_s(tmp, len, len - 1, "eventid %u", event->eventid);
     BUF_POINTER_FORWARD;
 
     /* fill the path */
