@@ -30,15 +30,9 @@
 import("//kernel/liteos_a/liteos.gni")
 
 group("liteos") {
-  deps = [
-    "hievent",
-    "tzdriver",
-  ]
+  deps = [ "hievent" ]
 }
 
 config("public") {
-  configs = [
-    "hievent:public",
-    "tzdriver:public",
-  ]
+  configs = [ "hievent:public" ]
 }
