@@ -354,23 +354,31 @@ static struct file_operations_vfs g_hieventFops = {
     .poll  = HieventPoll,   /* poll */
 };
 
-static void HieventDeviceInit(void)
+static int HieventDeviceInit(void)
 {
     g_hieventDev.buffer = LOS_MemAlloc((VOID *)OS_SYS_MEM_ADDR,
                                        HIEVENT_LOG_BUFFER);
+    if (g_hieventDev.buffer == NULL) {
+        return -ENOMEM;
+    }
 
     init_waitqueue_head(&g_hieventDev.wq);
-    LOS_MuxInit(&g_hieventDev.mtx, NULL);
+    (void)LOS_MuxInit(&g_hieventDev.mtx, NULL);
 
     g_hieventDev.writeOffset = 0;
     g_hieventDev.headOffset = 0;
     g_hieventDev.size = 0;
     g_hieventDev.count = 0;
+    return 0;
 }
 
 int HieventInit()
 {
-    HieventDeviceInit();
+    int ret = HieventDeviceInit();
+    if (ret != 0) {
+        return ret;
+    }
+
     register_driver("/dev/hwlog_exception", &g_hieventFops,
                     DRIVER_MODE, &g_hieventDev);
     return 0;
