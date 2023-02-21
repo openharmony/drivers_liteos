@@ -956,8 +956,7 @@ static void ShadowWorkFunc(struct work_struct *work)
     shadowThread = KthreadRun(ShadowThreadFn, targetArg, sizeof(uint64_t), shadowName);
     if (IS_ERR_OR_NULL(shadowThread)) {
         free(targetArg);
-        tloge("couldn't create shadowThread %ld\n",
-            PTR_ERR(shadowThread));
+        tloge("couldn't create shadowThread\n");
         return;
     }
     tlogd("%s: create shadow thread %lu for target %llx\n",
@@ -1561,8 +1560,7 @@ int SmcInitData(void)
 
     g_siqThread = KthreadRun(SiqThreadFn, NULL, 0, "siqthread/0");
     if (unlikely(IS_ERR_OR_NULL(g_siqThread))) {
-        pr_err("couldn't create siqthread %lu\n",
-            PTR_ERR(g_siqThread));
+        pr_err("couldn't create siqthread\n");
         ret = (int)PTR_ERR(g_siqThread);
         goto FREE_MEM;
     }
@@ -1598,7 +1596,7 @@ int InitSmcSvcThread(void)
 {
     g_smcSvcThread = KthreadRun(SmcSvcThreadFn, NULL, 0, "smc_svc_thread");
     if (unlikely(IS_ERR_OR_NULL(g_smcSvcThread))) {
-        tloge("couldn't create smc_svc_thread %ld\n", PTR_ERR(g_smcSvcThread));
+        tloge("couldn't create smc_svc_thread\n");
         return PTR_ERR(g_smcSvcThread);
     }
     WakeUpProcess(g_smcSvcThread);
