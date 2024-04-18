@@ -85,7 +85,6 @@ static inline unsigned char *HieventBufferHead(void)
     return g_hieventDev.buffer + g_hieventDev.headOffset;
 }
 
-
 int HieventOpen(struct file *filep)
 {
     (void)filep;
@@ -210,7 +209,6 @@ out:
     }
     (VOID)LOS_MuxRelease(&g_hieventDev.mtx);
     return retval;
-
 }
 
 static int HieventWriteRingBuffer(unsigned char *buffer, size_t bufLen)
@@ -320,7 +318,6 @@ out:
         wake_up_interruptible(&g_hieventDev.wq);
     }
     return retval;
-
 }
 
 static ssize_t HieventWrite(struct file *filep,
